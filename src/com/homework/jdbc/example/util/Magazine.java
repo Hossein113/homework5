@@ -1,4 +1,4 @@
-package com.homework.jdbc.example.domain;
+package com.homework.jdbc.example.util;
 
 public class Magazine {
 
