@@ -1,4 +1,4 @@
-package com.homework.jdbc.example.util;
+package com.homework.jdbc.example.domain;
 
 public abstract class Readable {
 
