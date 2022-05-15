@@ -1,6 +1,6 @@
 package com.homework.jdbc.example.domain;
 
-public class SportSohe extends Shoes {
+public class SportShoe extends Shoes {
 
     private String shoeStraType;
 
