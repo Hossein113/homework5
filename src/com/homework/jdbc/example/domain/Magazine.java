@@ -2,19 +2,9 @@ package com.homework.jdbc.example.domain;
 
 public class Magazine {
 
-    private String title;
-
     private String pageType;
 
-    private String size;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    private String pageSize;
 
     public String getPageType() {
         return pageType;
@@ -25,10 +15,10 @@ public class Magazine {
     }
 
     public String getSize() {
-        return size;
+        return pageSize;
     }
 
     public void setSize(String size) {
-        this.size = size;
+        this.pageSize = size;
     }
 }
