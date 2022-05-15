@@ -2,19 +2,16 @@ package com.homework.jdbc.example.domain;
 
 public class Television extends ElectricalAppliances {
 
-    private int id ;
+    private int id;
 
-    private int weight ;
 
-    private String color ;
-
-    private int voltageIn ;
-
-    private int manyChannal;
-
-    private int manySpeaker;
-
+    private String color;
     private int inchSize;
+    private int voltageIn;
+    private int channalNumber;
+    private int speakerNumber;
+    private int weight;
+
 
     private String ImageType;
 
@@ -53,19 +50,19 @@ public class Television extends ElectricalAppliances {
     }
 
     public int getManyChannal() {
-        return manyChannal;
+        return channalNumber;
     }
 
     public void setManyChannal(int manyChannal) {
-        this.manyChannal = manyChannal;
+        this.channalNumber = manyChannal;
     }
 
     public int getManySpeaker() {
-        return manySpeaker;
+        return speakerNumber;
     }
 
     public void setManySpeaker(int manySpeaker) {
-        this.manySpeaker = manySpeaker;
+        this.speakerNumber = manySpeaker;
     }
 
     public int getInchSize() {
