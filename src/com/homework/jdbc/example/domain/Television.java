@@ -2,34 +2,59 @@ package com.homework.jdbc.example.domain;
 
 public class Television extends ElectricalAppliances {
 
-    private int id;
-
 
     private String color;
     private int inchSize;
-    private int voltageIn;
+    private String voltageIn;
     private int channalNumber;
     private int speakerNumber;
-    private int weight;
-
-
+    private String weight;
     private String ImageType;
 
-    @Override
-    public int getId() {
-        return id;
+    public Television(String name, String madeIn, int price, int number, String brand, String color, int inchSize,
+                      String voltageIn, int channalNumber, int speakerNumber, String weight, String imageType) {
+        super(name, madeIn, price, number, brand);
+        this.color = color;
+        this.inchSize = inchSize;
+        this.voltageIn = voltageIn;
+        this.channalNumber = channalNumber;
+        this.speakerNumber = speakerNumber;
+        this.weight = weight;
+        ImageType = imageType;
     }
 
-    @Override
-    public void setId(int id) {
-        this.id = id;
+    public Television(String color, int inchSize, String voltageIn, int channalNumber, int speakerNumber,
+                      String weight, String imageType) {
+        this.color = color;
+        this.inchSize = inchSize;
+        this.voltageIn = voltageIn;
+        this.channalNumber = channalNumber;
+        this.speakerNumber = speakerNumber;
+        this.weight = weight;
+        ImageType = imageType;
     }
 
-    public int getWeight() {
+    public int getChannalNumber() {
+        return channalNumber;
+    }
+
+    public void setChannalNumber(int channalNumber) {
+        this.channalNumber = channalNumber;
+    }
+
+    public int getSpeakerNumber() {
+        return speakerNumber;
+    }
+
+    public void setSpeakerNumber(int speakerNumber) {
+        this.speakerNumber = speakerNumber;
+    }
+
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
@@ -41,29 +66,15 @@ public class Television extends ElectricalAppliances {
         this.color = color;
     }
 
-    public int getVoltageIn() {
+    public String getVoltageIn() {
         return voltageIn;
     }
 
-    public void setVoltageIn(int voltageIn) {
+    public void setVoltageIn(String voltageIn) {
         this.voltageIn = voltageIn;
     }
 
-    public int getManyChannal() {
-        return channalNumber;
-    }
 
-    public void setManyChannal(int manyChannal) {
-        this.channalNumber = manyChannal;
-    }
-
-    public int getManySpeaker() {
-        return speakerNumber;
-    }
-
-    public void setManySpeaker(int manySpeaker) {
-        this.speakerNumber = manySpeaker;
-    }
 
     public int getInchSize() {
         return inchSize;
