@@ -2,23 +2,38 @@ package com.homework.jdbc.example.domain;
 
 public class Radio extends ElectricalAppliances {
 
-    private String color ;
+    private String color;
 
     private String size;
 
-    private int voltageIn ;
+    private String voltageIn;
 
     private int channelNumber;
 
     private int speakerNumber;
 
-    private int weight;
+    private String weight;
 
-    public int getWeight() {
+
+    public Radio() {
+    }
+
+    public Radio(String name, String madeIn, int price, int number, String brand, String color,
+                 String size, String voltageIn, int channelNumber, int speakerNumber, String weight) {
+        super(name, madeIn, price, number, brand);
+        this.color = color;
+        this.size = size;
+        this.voltageIn = voltageIn;
+        this.channelNumber = channelNumber;
+        this.speakerNumber = speakerNumber;
+        this.weight = weight;
+    }
+
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
@@ -38,11 +53,11 @@ public class Radio extends ElectricalAppliances {
         this.size = size;
     }
 
-    public int getVoltageIn() {
+    public String getVoltageIn() {
         return voltageIn;
     }
 
-    public void setVoltageIn(int voltageIn) {
+    public void setVoltageIn(String voltageIn) {
         this.voltageIn = voltageIn;
     }
 
