@@ -8,13 +8,40 @@ public abstract class Product {
 
     private String madeIn;
 
-    private long price ;
+    private int price;
 
-    public long getPrice() {
+    private int number;
+
+    public Product() {
+    }
+
+    public Product(String name, String madeIn, int price, int number) {
+        this.name = name;
+        this.madeIn = madeIn;
+        this.price = price;
+        this.number = number;
+    }
+
+    public Product(int id, String name, String madeIn, int price) {
+        this.id = id;
+        this.name = name;
+        this.madeIn = madeIn;
+        this.price = price;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
