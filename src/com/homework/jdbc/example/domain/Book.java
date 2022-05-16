@@ -2,6 +2,7 @@ package com.homework.jdbc.example.domain;
 
 public class Book extends Readable {
 
+
     private int pagesNumber;
 
     private String writer;
@@ -9,6 +10,14 @@ public class Book extends Readable {
     private String publisher;
 
     private int printYear;
+
+    public Book(String name, String madeIn, int price, int number, String title, int pagesNumber, String writer, String publisher, int printYear) {
+        super(name, madeIn, price, number, title);
+        this.pagesNumber = pagesNumber;
+        this.writer = writer;
+        this.publisher = publisher;
+        this.printYear = printYear;
+    }
 
     public int getPagesNumber() {
         return pagesNumber;
