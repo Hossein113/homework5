@@ -1,10 +1,19 @@
 package com.homework.jdbc.example.domain;
 
-public abstract class Readable {
+public abstract class Readable extends Product {
 
     private int id;
 
-    private int title;
+    private String title;
+
+    public Readable(String title) {
+        this.title = title;
+    }
+
+    public Readable(String name, String madeIn, int price, int number, String title) {
+        super(name, madeIn, price, number);
+        this.title = title;
+    }
 
     public int getId() {
         return id;
@@ -14,11 +23,11 @@ public abstract class Readable {
         this.id = id;
     }
 
-    public int getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(int title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 }
