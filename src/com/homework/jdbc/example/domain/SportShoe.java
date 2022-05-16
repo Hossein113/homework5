@@ -2,16 +2,22 @@ package com.homework.jdbc.example.domain;
 
 public class SportShoe extends Shoes {
 
-    private String shoeStraType;
+    private String StraType;
 
     private String sportType;
 
-    public String getShoeStraType() {
-        return shoeStraType;
+    public SportShoe(String name, String madeIn, int price, int number, int size, String material, String color, String straType, String sportType) {
+        super(name, madeIn, price, number, size, material, color);
+        StraType = straType;
+        this.sportType = sportType;
     }
 
-    public void setShoeStraType(String shoeStraType) {
-        this.shoeStraType = shoeStraType;
+    public String getStraType() {
+        return StraType;
+    }
+
+    public void setStraType(String straType) {
+        this.StraType = straType;
     }
 
     public String getSportType() {
