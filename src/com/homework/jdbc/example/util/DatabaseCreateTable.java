@@ -6,35 +6,30 @@ import java.sql.Statement;
 
 public class DatabaseCreateTable {
 
-    public Connection connection;
+    private Connection connection;
 
     private String schemaName = "jdbc_prodoct";
 
 
-    DatabaseCreateTable(Connection aa) {
-
-
+    public DatabaseCreateTable(Connection aa) {
         this.connection = aa;
-
     }
 
 
     public void init() throws SQLException {
-        initTable();
+        createSchema();
 
-
+        initTables();
     }
 
-    private void initTable() throws SQLException {
-        createSchema();
-        createTableProducts();
-        createTableElectricalAppliances();
+    private void initTables() throws SQLException {
+
         createTableRadio();
         createTableTelevision();
-        createTableShoes();
+
         createTableSportShoe();
         createTableOfficalShoe();
-        createTableOReadable();
+
         createTableBook();
         createTableMagazine();
     }
@@ -49,47 +44,24 @@ public class DatabaseCreateTable {
         statement.executeUpdate("use " + schemaName);
     }
 
-    private void createTableProducts() throws SQLException {
 
-        String quri = "create table if not exists product_table " +
-                "(" +
-                "id int not null auto_increment," +
-                "Name varchar(255)," +
-                "price varchar(255)," +
-                "madeIn varchar(255)," +
-                "primary key (id)" +
-                ")";
-
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(quri);
-
-    }
-
-    private void createTableElectricalAppliances() throws SQLException {
-
-        String quri = "create table if not exists electricalAppliances_table " +
-                "(" +
-                "id int not null auto_increment," +
-                "brand varchar(255)," +
-                "primary key (id)" +
-                ")";
-
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(quri);
-
-    }
 
     private void createTableRadio() throws SQLException {
 
         String quri = "create table if not exists radio_table " +
                 "(" +
                 "id int not null auto_increment," +
+                "name varchar(255)," +
+                "price varchar(255)," +
+                "made_in varchar(255)," +
                 "color varchar(255)," +
                 "size varchar(255)," +
-                "voltageIn varchar(255)," +
-                "channelNumber int ," +
-                "speakerNumber int ," +
+                "voltage_in varchar(255)," +
+                "channel_number int ," +
+                "speaker_number int ," +
                 "weight varchar (255)," +
+                "brand varchar(255)," +
+                "number int ," +
                 "primary key (id)" +
                 ")";
 
@@ -103,13 +75,18 @@ public class DatabaseCreateTable {
         String quri = "create table if not exists television_table " +
                 "(" +
                 "id int not null auto_increment," +
+                "name varchar(255)," +
+                "price varchar(255)," +
+                "made_in varchar(255)," +
                 "color varchar(255)," +
-                "inchSize varchar(255)," +
-                "voltageIn varchar(255)," +
-                "channelNumber int ," +
-                "speakerNumber int ," +
+                "inch_size varchar(255)," +
+                "voltage_in varchar(255)," +
+                "channel_number int ," +
+                "speaker_number int ," +
                 "weight varchar (255)," +
-                "imageType varchar (255)," +
+                "image_type varchar (255)," +
+                "brand varchar(255)," +
+                "number int ," +
                 "primary key (id)" +
                 ")";
 
@@ -119,29 +96,19 @@ public class DatabaseCreateTable {
 
     }
 
-    private void createTableShoes() throws SQLException {
-
-        String quri = "create table if not exists shoes_table " +
-                "(" +
-                "id int not null auto_increment," +
-                "inchSize int ," +
-                "materiam varchar(255)," +
-                "color varchar(255)," +
-                "primary key (id)" +
-                ")";
-
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(quri);
-
-    }
 
     private void createTableSportShoe() throws SQLException {
 
         String quri = "create table if not exists sportShoe_table " +
                 "(" +
                 "id int not null auto_increment," +
-                "shoeStraType varchar(255)," +
-                "sportType varchar(255)," +
+                "name varchar(255)," +
+                "price varchar(255)," +
+                "material varchar(255)," +
+                "color varchar(255)," +
+                "stra_type varchar(255)," +
+                "sport_type varchar(255)," +
+                "number int ," +
                 "primary key (id)" +
                 ")";
 
@@ -155,7 +122,12 @@ public class DatabaseCreateTable {
         String quri = "create table if not exists OfficalShoe_table " +
                 "(" +
                 "id int not null auto_increment," +
-                "followingLayerType varchar(255)," +
+                "name varchar(255)," +
+                "price varchar(255)," +
+                "material varchar(255)," +
+                "color varchar(255)," +
+                "following_layer_type varchar(255)," +
+                "number int ," +
                 "primary key (id)" +
                 ")";
 
@@ -164,29 +136,21 @@ public class DatabaseCreateTable {
 
     }
 
-    private void createTableOReadable() throws SQLException {
-
-        String quri = "create table if not exists readable_table " +
-                "(" +
-                "id int not null auto_increment," +
-                "title varchar(255)," +
-                "primary key (id)" +
-                ")";
-
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(quri);
-
-    }
 
     private void createTableBook() throws SQLException {
 
         String quri = "create table if not exists book_table " +
                 "(" +
                 "id int not null auto_increment," +
-                "pagesNumber int," +
+                "name varchar(255)," +
+                "price varchar(255)," +
+                "made_in varchar(255)," +
+                "title varchar(255)," +
+                "pages_number int," +
                 "writer varchar(255)," +
                 "publisher varchar(255)," +
-                "printYear int," +
+                "print_year int," +
+                "number int ," +
                 "primary key (id)" +
                 ")";
 
@@ -200,8 +164,13 @@ public class DatabaseCreateTable {
         String quri = "create table if not exists magazine_table " +
                 "(" +
                 "id int not null auto_increment," +
-                "pageType varchar(255)," +
-                "pageSize varchar(255)," +
+                "name varchar(255)," +
+                "price varchar(255)," +
+                "made_in varchar(255)," +
+                "title varchar(255)," +
+                "page_type varchar(255)," +
+                "page_size varchar(255)," +
+                "number int ," +
                 "primary key (id)" +
                 ")";
 
