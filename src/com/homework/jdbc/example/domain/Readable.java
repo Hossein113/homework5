@@ -2,11 +2,10 @@ package com.homework.jdbc.example.domain;
 
 public abstract class Readable extends Product {
 
-    private int id;
 
     private String title;
 
-    public Readable(String title) {
+    public Readable(String name, int price, int number, String title) {
         this.title = title;
     }
 
@@ -15,13 +14,16 @@ public abstract class Readable extends Product {
         this.title = title;
     }
 
-    public int getId() {
-        return id;
+    public Readable() {
+        this.title = title;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Readable(int id, String name, String madeIn, int price, int number, int id1, String title) {
+        super(id, name, madeIn, price, number);
+
+        this.title = title;
     }
+
 
     public String getTitle() {
         return title;
@@ -30,4 +32,12 @@ public abstract class Readable extends Product {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    @Override
+    public String toString() {
+        return "Readable{" +
+                "title='" + title + '\'' +
+                "} " + super.toString();
+    }
 }
+
