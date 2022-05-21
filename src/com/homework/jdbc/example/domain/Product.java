@@ -29,6 +29,20 @@ public abstract class Product {
         this.price = price;
     }
 
+    public Product(int id, String name, String madeIn, int price, int number) {
+        this.id = id;
+        this.name = name;
+        this.madeIn = madeIn;
+        this.price = price;
+        this.number = number;
+    }
+
+    public Product(String name, int price, int number) {
+        this.name = name;
+        this.price = price;
+        this.number = number;
+    }
+
     public int getNumber() {
         return number;
     }
@@ -68,4 +82,15 @@ public abstract class Product {
     public void setMadeIn(String madeIn) {
         this.madeIn = madeIn;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                ", name='" + name + '\'' +
+                ", madeIn='" + madeIn + '\'' +
+                ", price=" + price +
+                ", number=" + number +
+                '}';
+    }
 }
+
