@@ -12,9 +12,23 @@ public class Book extends Readable {
     private int printYear;
 
 
-    public Book(String name, String madeIn, int price, int number, String title, int pagesNumber, String writer, String publisher, int printYear) {
+    public Book(String name, String madeIn, int price, int number, String title,
+                int pagesNumber, String writer, String publisher, int printYear) {
         super(name, madeIn, price, number, title);
 
+        this.pagesNumber = pagesNumber;
+        this.writer = writer;
+        this.publisher = publisher;
+        this.printYear = printYear;
+    }
+
+    public Book(String name, int price, int number, String title, String writer) {
+        super(name, price, number, title);
+        this.writer = writer;
+    }
+
+    public Book(int pagesNumber, String writer, String publisher, int printYear) {
+        super();
         this.pagesNumber = pagesNumber;
         this.writer = writer;
         this.publisher = publisher;
@@ -52,4 +66,15 @@ public class Book extends Readable {
     public void setPrintYear(int printYear) {
         this.printYear = printYear;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "pagesNumber=" + pagesNumber +
+                ", writer='" + writer + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", printYear=" + printYear +
+                "} " + super.toString();
+    }
+
 }
