@@ -12,6 +12,11 @@ public class SportShoe extends Shoes {
         this.sportType = sportType;
     }
 
+    public SportShoe(String name, int price, int number, int size, String color, String sportType) {
+        super(name, price, number, size, color);
+        this.sportType = sportType;
+    }
+
     public String getStraType() {
         return StraType;
     }
@@ -26,5 +31,13 @@ public class SportShoe extends Shoes {
 
     public void setSportType(String sportType) {
         this.sportType = sportType;
+    }
+
+    @Override
+    public String toString() {
+        return "SportShoe{" +
+                "StraType='" + StraType + '\'' +
+                ", sportType='" + sportType + '\'' +
+                "} " + super.toString();
     }
 }
