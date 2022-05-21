@@ -1,6 +1,7 @@
 package com.homework.jdbc.example.repositori;
 
 import com.homework.jdbc.example.domain.SportShoe;
+import com.homework.jdbc.example.util.ApplicationContext;
 
 import java.sql.*;
 
@@ -15,16 +16,18 @@ public class SportShoeRepository {
 
     public SportShoe insertSportShoe(SportShoe sportShoe) throws SQLException {
 
-        String insertQuery = "insert into sportshoe_table ( name, price ,material, color ,stra_type ," +
-                "sport_type ,number ) values (?,?,?,?,?,?,?) ";
+        String insertQuery = "insert into sportshoe_table ( name, price ,material, size,color,made_in ,stra_type ," +
+                "sport_type ,number ) values (?,?,?,?,?,?,?,?,?) ";
         PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
         preparedStatement.setString(1, sportShoe.getName());
         preparedStatement.setInt(2, sportShoe.getPrice());
         preparedStatement.setString(3, sportShoe.getMaterial());
-        preparedStatement.setString(4, sportShoe.getColor());
-        preparedStatement.setString(5, sportShoe.getStraType());
-        preparedStatement.setString(6, sportShoe.getSportType());
-        preparedStatement.setInt(7, sportShoe.getNumber());
+        preparedStatement.setInt(4, sportShoe.getSize());
+        preparedStatement.setString(5, sportShoe.getColor());
+        preparedStatement.setString(6, sportShoe.getMadeIn());
+        preparedStatement.setString(7, sportShoe.getStraType());
+        preparedStatement.setString(8, sportShoe.getSportType());
+        preparedStatement.setInt(9, sportShoe.getNumber());
 
 
         preparedStatement.executeUpdate();
@@ -42,4 +45,51 @@ public class SportShoeRepository {
         return 0;
     }
 
+    public SportShoe[] getAllSportShoe() throws SQLException {
+        int allPrint = countAllSportShoe();
+
+
+        SportShoe[] sportShoes = new SportShoe[allPrint];
+        int count = 0;
+        String query = "select * from sportshoe_table";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+
+            sportShoes[count] = new SportShoe(
+
+
+                    resultSet.getString(2),
+                    resultSet.getString(7),
+                    resultSet.getInt(3),
+                    resultSet.getInt(10),
+                    resultSet.getInt(5),
+                    resultSet.getString(4),
+                    resultSet.getString(6),
+                    resultSet.getString(8),
+                    resultSet.getString(9)
+
+            );
+
+
+            count++;
+        }
+        return sportShoes;
+    }
+
+
+    public int countAllSportShoe() throws SQLException {
+        String query = "select count(*) from sportshoe_table";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
+
+    public void addedToMyCart(ApplicationContext applicationContext) {
+
+
+    }
 }
