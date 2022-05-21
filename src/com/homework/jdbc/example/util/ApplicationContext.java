@@ -1,9 +1,11 @@
 package com.homework.jdbc.example.util;
 
+import com.homework.jdbc.example.domain.User;
 import com.homework.jdbc.example.repositori.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class ApplicationContext {
     private DatabaseConnected databaseConnected;
@@ -15,6 +17,39 @@ public class ApplicationContext {
     private OfficalshoeRepository officalshoeRepository;
     private BookRepository bookRepository;
     private MagazineRepository magazineRepository;
+    private UserRepository userRepository;
+    private ShowMenu showMenu;
+    private Scanner intScanner;
+    private Scanner stringScanner;
+    private SecurityUser securityUser;
+    private User currentUser = null;
+
+    public UserRepository getUserRepository() {
+        this.userRepository = new UserRepository(databaseConnected.getConnection());
+        return userRepository;
+    }
+
+    public SecurityUser getSecurityUser() {
+        if (securityUser == null) {
+            this.securityUser = new SecurityUser();
+        }
+        return securityUser;
+    }
+
+    public Scanner getIntScanner() {
+        if (intScanner == null) {
+            this.intScanner = new Scanner(System.in);
+        }
+        return intScanner;
+    }
+
+    public Scanner getStringScanner() {
+        if (stringScanner == null) {
+            this.stringScanner = new Scanner(System.in);
+        }
+        return stringScanner;
+
+    }
 
 
     public BookRepository getBookRepository() {
@@ -84,5 +119,20 @@ public class ApplicationContext {
         return databaseConnected;
     }
 
+    public ShowMenu getShowMenu() {
+        this.showMenu = new ShowMenu();
+        return showMenu;
+    }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public void logout() {
+        this.currentUser = null;
+    }
 }
