@@ -34,6 +34,37 @@ public class DatabaseCreateTable {
         createTableMagazine();
 
         initUserTable();
+        createCartTable();
+        createCarteRelationProductTable();
+
+
+    }
+
+    private void createCarteRelationProductTable() throws SQLException {
+
+        String quri = " create table if not exists relation_table" +
+                "(" +
+                "id int not null auto_increment," +
+                "cart_id int ," +
+                " product_id int, " +
+                "reference varchar (255)," +
+                "primary key(id)" +
+                ")";
+
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(quri);
+    }
+
+    private void createCartTable() throws SQLException {
+        String quri = "create table if not exists cart_table" +
+                "(" +
+                "id int not null auto_increment," +
+                "user_id int," +
+                "primary key (id)" +
+                ")";
+
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(quri);
     }
 
     private void createSchema() throws SQLException {
@@ -45,7 +76,6 @@ public class DatabaseCreateTable {
         statement = connection.createStatement();
         statement.executeUpdate("use " + schemaName);
     }
-
 
 
     private void createTableRadio() throws SQLException {
