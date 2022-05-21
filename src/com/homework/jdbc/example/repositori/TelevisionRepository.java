@@ -48,4 +48,50 @@ public class TelevisionRepository {
         return 0;
     }
 
+    public Television[] getAllTelevision() throws SQLException {
+        int allPrint = countAllTelevision();
+
+
+        Television[] televisions = new Television[allPrint];
+        int count = 0;
+        String query = "select * from television_table";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+
+            televisions[count] = new Television(
+
+
+                    resultSet.getString(2),
+                    resultSet.getString(4),
+                    resultSet.getInt(3),
+                    resultSet.getInt(13),
+                    resultSet.getString(12),
+                    resultSet.getString(5),
+                    resultSet.getInt(6),
+                    resultSet.getString(7),
+                    resultSet.getInt(8),
+                    resultSet.getInt(9),
+                    resultSet.getString(10),
+                    resultSet.getString(11)
+
+            );
+
+
+            count++;
+        }
+        return televisions;
+    }
+
+
+    public int countAllTelevision() throws SQLException {
+        String query = "select count(*) from television_table";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
+
 }
