@@ -13,6 +13,7 @@ public abstract class Product {
     private int number;
 
     public Product() {
+
     }
 
     public Product(String name, String madeIn, int price, int number) {
