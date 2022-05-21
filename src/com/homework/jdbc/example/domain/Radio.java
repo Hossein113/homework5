@@ -18,6 +18,12 @@ public class Radio extends ElectricalAppliances {
     public Radio() {
     }
 
+    public Radio(String name, String madeIn, int price, int number, String brand, String color, String voltageIn) {
+        super(name, madeIn, price, number, brand);
+        this.color = color;
+        this.voltageIn = voltageIn;
+    }
+
     public Radio(String name, String madeIn, int price, int number, String brand, String color,
                  String size, String voltageIn, int channelNumber, int speakerNumber, String weight) {
         super(name, madeIn, price, number, brand);
@@ -75,5 +81,17 @@ public class Radio extends ElectricalAppliances {
 
     public void setSpeakerNumber(int speakerNumber) {
         this.speakerNumber = speakerNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Radio{" +
+                "color='" + color + '\'' +
+                ", size='" + size + '\'' +
+                ", voltageIn='" + voltageIn + '\'' +
+                ", channelNumber=" + channelNumber +
+                ", speakerNumber=" + speakerNumber +
+                ", weight='" + weight + '\'' +
+                "} " + super.toString();
     }
 }
