@@ -17,6 +17,18 @@ public abstract class Shoes extends Product {
         this.color = color;
     }
 
+    public Shoes(String name, int price, int number, int size, String color) {
+        super(name, price, number);
+        this.size = size;
+        this.color = color;
+    }
+
+    public Shoes(String name, String madeIn, int price, int number, int size, String color) {
+        super(name, madeIn, price, number);
+        this.size = size;
+        this.color = color;
+    }
+
     public int getId() {
         return id;
     }
@@ -48,4 +60,14 @@ public abstract class Shoes extends Product {
     public void setColor(String color) {
         this.color = color;
     }
+
+    @Override
+    public String toString() {
+        return "Shoes{" +
+                ", size=" + size +
+                ", material='" + material + '\'' +
+                ", color='" + color + '\'' +
+                "} " + super.toString();
+    }
 }
+
