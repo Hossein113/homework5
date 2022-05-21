@@ -15,15 +15,17 @@ public class OfficalshoeRepository {
 
     public OfficalShoe insertOfficalShoe(OfficalShoe oficalShoe) throws SQLException {
 
-        String insertQuery = "insert into officalshoe_table( name, price,material,color" +
-                ",following_layer_type,number) values (?,?,?,?,?,?) ";
+        String insertQuery = "insert into officalshoe_table( name, price,material ,size,color,made_in" +
+                ",following_layer_type,number) values (?,?,?,?,?,?,?,?) ";
         PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
         preparedStatement.setString(1, oficalShoe.getName());
         preparedStatement.setInt(2, oficalShoe.getPrice());
         preparedStatement.setString(3, oficalShoe.getMaterial());
-        preparedStatement.setString(4, oficalShoe.getColor());
-        preparedStatement.setString(5, oficalShoe.getFollowingLayerType());
-        preparedStatement.setInt(6, oficalShoe.getNumber());
+        preparedStatement.setInt(4, oficalShoe.getSize());
+        preparedStatement.setString(5, oficalShoe.getColor());
+        preparedStatement.setString(6, oficalShoe.getMadeIn());
+        preparedStatement.setString(7, oficalShoe.getFollowingLayerType());
+        preparedStatement.setInt(8, oficalShoe.getNumber());
         preparedStatement.executeUpdate();
         oficalShoe.setId(getMaxId());
         return oficalShoe;
@@ -32,6 +34,50 @@ public class OfficalshoeRepository {
     private int getMaxId() throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("select max(id) from officalshoe_table");
+        if (resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
+
+
+    public OfficalShoe[] getAllOfficalShoe() throws SQLException {
+        int allPrint = countAllOfficalshoe();
+
+
+        OfficalShoe[] officalShoes = new OfficalShoe[allPrint];
+        int count = 0;
+        String query = "select * from officalshoe_table";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+
+            officalShoes[count] = new OfficalShoe(
+
+
+                    resultSet.getString(2),
+                    resultSet.getString(7),
+                    resultSet.getInt(3),
+                    resultSet.getInt(9),
+                    resultSet.getInt(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(8)
+
+
+            );
+
+
+            count++;
+        }
+        return officalShoes;
+    }
+
+
+    public int countAllOfficalshoe() throws SQLException {
+        String query = "select count(*) from officalshoe_table";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             return resultSet.getInt(1);
         }
