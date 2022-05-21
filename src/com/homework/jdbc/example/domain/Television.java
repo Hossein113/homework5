@@ -11,6 +11,9 @@ public class Television extends ElectricalAppliances {
     private String weight;
     private String ImageType;
 
+    public Television() {
+    }
+
     public Television(String name, String madeIn, int price, int number, String brand, String color, int inchSize,
                       String voltageIn, int channalNumber, int speakerNumber, String weight, String imageType) {
         super(name, madeIn, price, number, brand);
@@ -33,6 +36,12 @@ public class Television extends ElectricalAppliances {
         this.weight = weight;
         ImageType = imageType;
     }
+
+    public Television(String name, String madeIn, int price, int number, String brand, String color) {
+        super(name, madeIn, price, number, brand);
+        this.color = color;
+    }
+
 
     public int getChannalNumber() {
         return channalNumber;
@@ -90,5 +99,18 @@ public class Television extends ElectricalAppliances {
 
     public void setImageType(String imageType) {
         ImageType = imageType;
+    }
+
+    @Override
+    public String toString() {
+        return "Television{" +
+                "color='" + color + '\'' +
+                ", inchSize=" + inchSize +
+                ", voltageIn='" + voltageIn + '\'' +
+                ", channalNumber=" + channalNumber +
+                ", speakerNumber=" + speakerNumber +
+                ", weight='" + weight + '\'' +
+                ", ImageType='" + ImageType + '\'' +
+                "} " + super.toString();
     }
 }
