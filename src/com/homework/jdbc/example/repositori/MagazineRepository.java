@@ -42,4 +42,44 @@ public class MagazineRepository {
         return 0;
     }
 
+    public Magazine[] getAllMagazine() throws SQLException {
+        int allPrint = countAllMagazine();
+
+
+        Magazine[] magazines = new Magazine[allPrint];
+        int count = 0;
+        String query = "select * from magazine_table";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+
+            magazines[count] = new Magazine(
+
+
+                    resultSet.getString(2),
+                    resultSet.getString(4),
+                    resultSet.getInt(3),
+                    resultSet.getInt(8),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7)
+
+            );
+
+
+            count++;
+        }
+        return magazines;
+    }
+
+
+    public int countAllMagazine() throws SQLException {
+        String query = "select count(*) from magazine_table";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
 }
