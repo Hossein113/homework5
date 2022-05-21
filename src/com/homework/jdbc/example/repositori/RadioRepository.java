@@ -48,6 +48,51 @@ public class RadioRepository {
         return 0;
     }
 
+    public Radio[] getAllRadio() throws SQLException {
+        int allPrint = countAllRadio();
+
+
+        Radio[] radios = new Radio[allPrint];
+        int count = 0;
+        String query = "select * from radio_table";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+
+            radios[count] = new Radio(
+
+
+                    resultSet.getString(1),
+                    resultSet.getString(4),
+                    resultSet.getInt(3),
+                    resultSet.getInt(12),
+                    resultSet.getString(11),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7),
+                    resultSet.getInt(8),
+                    resultSet.getInt(9),
+                    resultSet.getString(10)
+
+            );
+
+
+            count++;
+        }
+        return radios;
+    }
+
+
+    public int countAllRadio() throws SQLException {
+        String query = "select count(*) from radio_table";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
+
 
     public Radio[] getRadioList() {
         return radioList;
