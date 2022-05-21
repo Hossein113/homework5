@@ -44,5 +44,49 @@ public class BookRepository {
         return 0;
     }
 
+    public Book[] getAllBook() throws SQLException {
+        int allPrint = countAllBook();
+
+
+        Book[] books = new Book[allPrint];
+        int count = 0;
+        String query = "select * from book_table";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+
+            books[count] = new Book(
+
+
+                    resultSet.getString(2),
+                    resultSet.getString(4),
+                    resultSet.getInt(3),
+                    resultSet.getInt(10),
+                    resultSet.getString(5),
+                    resultSet.getInt(6),
+                    resultSet.getString(7),
+                    resultSet.getString(8),
+                    resultSet.getInt(9)
+
+            );
+
+
+            count++;
+        }
+        return books;
+    }
+
+
+    public int countAllBook() throws SQLException {
+        String query = "select count(*) from book_table";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
+
 
 }
+
