@@ -32,6 +32,8 @@ public class DatabaseCreateTable {
 
         createTableBook();
         createTableMagazine();
+
+        initUserTable();
     }
 
     private void createSchema() throws SQLException {
@@ -52,7 +54,7 @@ public class DatabaseCreateTable {
                 "(" +
                 "id int not null auto_increment," +
                 "name varchar(255)," +
-                "price varchar(255)," +
+                "price int," +
                 "made_in varchar(255)," +
                 "color varchar(255)," +
                 "size varchar(255)," +
@@ -76,7 +78,7 @@ public class DatabaseCreateTable {
                 "(" +
                 "id int not null auto_increment," +
                 "name varchar(255)," +
-                "price varchar(255)," +
+                "price int," +
                 "made_in varchar(255)," +
                 "color varchar(255)," +
                 "inch_size varchar(255)," +
@@ -103,9 +105,11 @@ public class DatabaseCreateTable {
                 "(" +
                 "id int not null auto_increment," +
                 "name varchar(255)," +
-                "price varchar(255)," +
+                "price int," +
                 "material varchar(255)," +
+                "size int," +
                 "color varchar(255)," +
+                "made_in varchar (255)," +
                 "stra_type varchar(255)," +
                 "sport_type varchar(255)," +
                 "number int ," +
@@ -123,9 +127,11 @@ public class DatabaseCreateTable {
                 "(" +
                 "id int not null auto_increment," +
                 "name varchar(255)," +
-                "price varchar(255)," +
+                "price int," +
+                "size int," +
                 "material varchar(255)," +
                 "color varchar(255)," +
+                "made_in varchar (255)," +
                 "following_layer_type varchar(255)," +
                 "number int ," +
                 "primary key (id)" +
@@ -143,7 +149,7 @@ public class DatabaseCreateTable {
                 "(" +
                 "id int not null auto_increment," +
                 "name varchar(255)," +
-                "price varchar(255)," +
+                "price int," +
                 "made_in varchar(255)," +
                 "title varchar(255)," +
                 "pages_number int," +
@@ -165,7 +171,7 @@ public class DatabaseCreateTable {
                 "(" +
                 "id int not null auto_increment," +
                 "name varchar(255)," +
-                "price varchar(255)," +
+                "price int," +
                 "made_in varchar(255)," +
                 "title varchar(255)," +
                 "page_type varchar(255)," +
@@ -177,6 +183,24 @@ public class DatabaseCreateTable {
         Statement statement = connection.createStatement();
         statement.executeUpdate(quri);
 
+    }
+
+    private void initUserTable() throws SQLException {
+        String createUserTable =
+                "create table if not exists user_table" +
+                        "(" +
+                        "id int not null auto_increment," +
+                        "first_name varchar(255)," +
+                        "last_name varchar(255)," +
+                        "username varchar(255)," +
+                        "password varchar(255)," +
+                        "phone_number varchar(255)," +
+                        "email_address varchar(255)," +
+                        "primary key (id)" +
+                        ")";
+
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(createUserTable);
     }
 }
 
