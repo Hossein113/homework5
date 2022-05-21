@@ -27,4 +27,14 @@ public class Magazine extends Readable {
     public void setSize(String size) {
         this.pageSize = size;
     }
+
+
+    @Override
+    public String toString() {
+        return "Magazine{" +
+                "pageType='" + pageType + '\'' +
+                ", pageSize='" + pageSize + '\'' +
+                "} " + super.toString();
+    }
 }
+
