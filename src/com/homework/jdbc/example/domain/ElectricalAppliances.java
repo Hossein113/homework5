@@ -26,4 +26,10 @@ public abstract class ElectricalAppliances extends Product {
         this.brand = brand;
     }
 
+    @Override
+    public String toString() {
+        return "ElectricalAppliances{" +
+                "brand='" + brand + '\'' +
+                "} " + super.toString();
+    }
 }
