@@ -61,7 +61,7 @@ public class TelevisionRepository {
 
             televisions[count] = new Television(
 
-
+                    resultSet.getInt(1),
                     resultSet.getString(2),
                     resultSet.getString(4),
                     resultSet.getInt(3),
