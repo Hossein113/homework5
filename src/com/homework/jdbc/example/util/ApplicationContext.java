@@ -1,6 +1,5 @@
 package com.homework.jdbc.example.util;
 
-import com.homework.jdbc.example.domain.User;
 import com.homework.jdbc.example.repositori.*;
 
 import java.sql.Connection;
@@ -12,6 +11,7 @@ public class ApplicationContext {
     private DatabaseCreateTable databaseCreateTable;
     private RadioRepository radioRepository;
     private DataInit dataInit;
+
     private TelevisionRepository televisionRepository;
     private SportShoeRepository sportShoeRepository;
     private OfficalshoeRepository officalshoeRepository;
@@ -22,7 +22,15 @@ public class ApplicationContext {
     private Scanner intScanner;
     private Scanner stringScanner;
     private SecurityUser securityUser;
-    private User currentUser = null;
+    private CartRepository cartRepository;
+
+    public CartRepository getCartRepository() {
+        if (cartRepository == null) {
+            cartRepository = new CartRepository(databaseConnected.getConnection(), securityUser);
+        }
+
+        return cartRepository;
+    }
 
     public UserRepository getUserRepository() {
         this.userRepository = new UserRepository(databaseConnected.getConnection());
@@ -74,6 +82,7 @@ public class ApplicationContext {
     }
 
     public DatabaseCreateTable getDatabaseCreateTable() {
+
         return databaseCreateTable;
     }
 
@@ -91,7 +100,9 @@ public class ApplicationContext {
     }
 
     public SportShoeRepository getSportShoeRepository() {
-        this.sportShoeRepository = new SportShoeRepository(databaseConnected.getConnection());
+        if (sportShoeRepository == null) {
+            this.sportShoeRepository = new SportShoeRepository(databaseConnected.getConnection());
+        }
         return sportShoeRepository;
     }
 
@@ -124,15 +135,4 @@ public class ApplicationContext {
         return showMenu;
     }
 
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
-    }
-
-    public void logout() {
-        this.currentUser = null;
-    }
 }
