@@ -58,7 +58,7 @@ public class SportShoeRepository {
 
             sportShoes[count] = new SportShoe(
 
-
+                    resultSet.getInt(1),
                     resultSet.getString(2),
                     resultSet.getString(7),
                     resultSet.getInt(3),
