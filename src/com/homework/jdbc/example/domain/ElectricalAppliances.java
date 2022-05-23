@@ -8,13 +8,13 @@ public abstract class ElectricalAppliances extends Product {
     }
 
 
-    public ElectricalAppliances(String name, String madeIn, int price, int number, String brand) {
-        super(name, madeIn, price, number);
+    public ElectricalAppliances(int id, String name, String madeIn, int price, int number, String brand) {
+        super(id, name, madeIn, price, number);
         this.brand = brand;
     }
 
-    public ElectricalAppliances(int id, String name, String madeIn, int price, String brand) {
-        super(id, name, madeIn, price);
+    public ElectricalAppliances(String name, String madeIn, int price, int number, String brand) {
+        super(name, madeIn, price, number);
         this.brand = brand;
     }
 
