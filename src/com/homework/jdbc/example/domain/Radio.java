@@ -18,14 +18,17 @@ public class Radio extends ElectricalAppliances {
     public Radio() {
     }
 
-    public Radio(String name, String madeIn, int price, int number, String brand, String color, String voltageIn) {
-        super(name, madeIn, price, number, brand);
+    public Radio(int id, String name, String madeIn, int price, int number, String brand, String color, String size, String voltageIn, int channelNumber, int speakerNumber, String weight) {
+        super(id, name, madeIn, price, number, brand);
         this.color = color;
+        this.size = size;
         this.voltageIn = voltageIn;
+        this.channelNumber = channelNumber;
+        this.speakerNumber = speakerNumber;
+        this.weight = weight;
     }
 
-    public Radio(String name, String madeIn, int price, int number, String brand, String color,
-                 String size, String voltageIn, int channelNumber, int speakerNumber, String weight) {
+    public Radio(String name, String madeIn, int price, int number, String brand, String color, String size, String voltageIn, int channelNumber, int speakerNumber, String weight) {
         super(name, madeIn, price, number, brand);
         this.color = color;
         this.size = size;
