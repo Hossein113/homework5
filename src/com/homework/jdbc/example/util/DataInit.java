@@ -100,6 +100,7 @@ public class DataInit {
 
     private void initShoeSport() throws SQLException {
         sportShoeRepository.insertSportShoe(new SportShoe(
+
                 "sport1", "naiki", 900, 3, 42,
                 "coton", "black", "band", "fottball"));
 
