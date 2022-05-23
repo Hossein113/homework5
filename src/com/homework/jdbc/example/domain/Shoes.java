@@ -2,39 +2,25 @@ package com.homework.jdbc.example.domain;
 
 public abstract class Shoes extends Product {
 
-    private int id;
-
     private int size;
 
     private String material;
 
     private String color;
 
-    public Shoes(String name, String madeIn, int price, int number, int size, String material, String color) {
-        super(name, madeIn, price, number);
+
+    public Shoes(int id, String name, String madeIn, int price, int number, int size, String material, String color) {
+        super(id, name, madeIn, price, number);
         this.size = size;
         this.material = material;
         this.color = color;
     }
 
-    public Shoes(String name, int price, int number, int size, String color) {
-        super(name, price, number);
-        this.size = size;
-        this.color = color;
-    }
-
-    public Shoes(String name, String madeIn, int price, int number, int size, String color) {
+    public Shoes(String name, String madeIn, int price, int number, int size, String material, String color) {
         super(name, madeIn, price, number);
         this.size = size;
+        this.material = material;
         this.color = color;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getSize() {
