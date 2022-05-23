@@ -44,11 +44,10 @@ public class DatabaseCreateTable {
 
         String quri = " create table if not exists relation_table" +
                 "(" +
-                "id int not null auto_increment," +
                 "cart_id int ," +
                 " product_id int, " +
                 "reference varchar (255)," +
-                "primary key(id)" +
+                "primary key(cart_id, product_id, reference)" +
                 ")";
 
         Statement statement = connection.createStatement();
