@@ -6,6 +6,12 @@ public class Magazine extends Readable {
 
     private String pageSize;
 
+    public Magazine(int id, String name, String madeIn, int price, int number, String title, String pageType, String pageSize) {
+        super(id, name, madeIn, price, number, title);
+        this.pageType = pageType;
+        this.pageSize = pageSize;
+    }
+
     public Magazine(String name, String madeIn, int price, int number, String title, String pageType, String pageSize) {
         super(name, madeIn, price, number, title);
         this.pageType = pageType;
