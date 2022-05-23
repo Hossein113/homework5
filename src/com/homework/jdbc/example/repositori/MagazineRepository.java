@@ -55,7 +55,7 @@ public class MagazineRepository {
 
             magazines[count] = new Magazine(
 
-
+                    resultSet.getInt(1),
                     resultSet.getString(2),
                     resultSet.getString(4),
                     resultSet.getInt(3),
