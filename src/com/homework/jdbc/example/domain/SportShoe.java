@@ -6,14 +6,15 @@ public class SportShoe extends Shoes {
 
     private String sportType;
 
-    public SportShoe(String name, String madeIn, int price, int number, int size, String material, String color, String straType, String sportType) {
-        super(name, madeIn, price, number, size, material, color);
+    public SportShoe(int id, String name, String madeIn, int price, int number, int size, String material, String color, String straType, String sportType) {
+        super(id, name, madeIn, price, number, size, material, color);
         StraType = straType;
         this.sportType = sportType;
     }
 
-    public SportShoe(String name, int price, int number, int size, String color, String sportType) {
-        super(name, price, number, size, color);
+    public SportShoe(String name, String madeIn, int price, int number, int size, String material, String color, String straType, String sportType) {
+        super(name, madeIn, price, number, size, material, color);
+        StraType = straType;
         this.sportType = sportType;
     }
 
