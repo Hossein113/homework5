@@ -20,19 +20,15 @@ public class User {
     public User() {
     }
 
-    public User(int id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 
-    public User(String firstName, String lastName, String userName, String password, String phoneNumber, String emailAddress) {
+    public User(String firstName, String lastName, String userName, String password, String phoneNumber, String emailAddress, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
+        this.address = address;
     }
 
     public User(int id, String firstName, String lastName, String userName, String password, String phoneNumber, String emailAddress) {
@@ -110,15 +106,18 @@ public class User {
         this.address = address;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
+                ", address=" + address +
                 '}';
     }
 }
