@@ -14,9 +14,8 @@ public class Television extends ElectricalAppliances {
     public Television() {
     }
 
-    public Television(String name, String madeIn, int price, int number, String brand, String color, int inchSize,
-                      String voltageIn, int channalNumber, int speakerNumber, String weight, String imageType) {
-        super(name, madeIn, price, number, brand);
+    public Television(int id, String name, String madeIn, int price, int number, String brand, String color, int inchSize, String voltageIn, int channalNumber, int speakerNumber, String weight, String imageType) {
+        super(id, name, madeIn, price, number, brand);
         this.color = color;
         this.inchSize = inchSize;
         this.voltageIn = voltageIn;
@@ -26,8 +25,8 @@ public class Television extends ElectricalAppliances {
         ImageType = imageType;
     }
 
-    public Television(String color, int inchSize, String voltageIn, int channalNumber, int speakerNumber,
-                      String weight, String imageType) {
+    public Television(String name, String madeIn, int price, int number, String brand, String color, int inchSize, String voltageIn, int channalNumber, int speakerNumber, String weight, String imageType) {
+        super(name, madeIn, price, number, brand);
         this.color = color;
         this.inchSize = inchSize;
         this.voltageIn = voltageIn;
@@ -36,12 +35,6 @@ public class Television extends ElectricalAppliances {
         this.weight = weight;
         ImageType = imageType;
     }
-
-    public Television(String name, String madeIn, int price, int number, String brand, String color) {
-        super(name, madeIn, price, number, brand);
-        this.color = color;
-    }
-
 
     public int getChannalNumber() {
         return channalNumber;
