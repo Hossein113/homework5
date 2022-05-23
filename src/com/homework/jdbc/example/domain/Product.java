@@ -16,20 +16,6 @@ public abstract class Product {
 
     }
 
-    public Product(String name, String madeIn, int price, int number) {
-        this.name = name;
-        this.madeIn = madeIn;
-        this.price = price;
-        this.number = number;
-    }
-
-    public Product(int id, String name, String madeIn, int price) {
-        this.id = id;
-        this.name = name;
-        this.madeIn = madeIn;
-        this.price = price;
-    }
-
     public Product(int id, String name, String madeIn, int price, int number) {
         this.id = id;
         this.name = name;
@@ -38,8 +24,9 @@ public abstract class Product {
         this.number = number;
     }
 
-    public Product(String name, int price, int number) {
+    public Product(String name, String madeIn, int price, int number) {
         this.name = name;
+        this.madeIn = madeIn;
         this.price = price;
         this.number = number;
     }
@@ -87,6 +74,7 @@ public abstract class Product {
     @Override
     public String toString() {
         return "Product{" +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", madeIn='" + madeIn + '\'' +
                 ", price=" + price +
