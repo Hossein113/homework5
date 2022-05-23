@@ -1,8 +1,20 @@
 package com.homework.jdbc.example.domain;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Cart {
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", user=" + user +
+                ", price=" + price +
+                ", products=" + Arrays.toString(products) +
+                ", productList=" + productList +
+                '}';
+    }
 
     private int id;
 
