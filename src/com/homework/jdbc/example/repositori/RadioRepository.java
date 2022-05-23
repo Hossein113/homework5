@@ -62,7 +62,8 @@ public class RadioRepository {
             radios[count] = new Radio(
 
 
-                    resultSet.getString(1),
+                    resultSet.getInt(1),
+                    resultSet.getString(2),
                     resultSet.getString(4),
                     resultSet.getInt(3),
                     resultSet.getInt(12),
