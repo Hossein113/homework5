@@ -54,7 +54,7 @@ public class OfficalshoeRepository {
 
             officalShoes[count] = new OfficalShoe(
 
-
+                    resultSet.getInt(1),
                     resultSet.getString(2),
                     resultSet.getString(7),
                     resultSet.getInt(3),
