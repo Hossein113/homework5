@@ -50,7 +50,7 @@ public class ShowMenu {
 
         System.out.println("login successfully done");
         System.out.println(
-                "welcome " + currentUser.getLastName() + " " + currentUser.getUserName()
+                "welcome " + currentUser.getFirstName() + " " + currentUser.getLastName()
         );
 
     }
@@ -79,9 +79,13 @@ public class ShowMenu {
 
     public void showProfile(User currentUser) {
         System.out.println("************************************");
-        System.out.println("firstName: " + currentUser.getLastName());
-        System.out.println("lastName: " + currentUser.getUserName());
-        System.out.println("username: " + currentUser.getPassword());
+
+        System.out.println("ID: " + currentUser.getId());
+        System.out.println("FirstName: " + currentUser.getFirstName());
+        System.out.println("LastName: " + currentUser.getLastName());
+        System.out.println("Username: " + currentUser.getUserName());
+        System.out.println("Email Address: " + currentUser.getEmailAddress());
+        System.out.println("phone Number: " + currentUser.getPhoneNumber());
         System.out.println("************************************");
     }
 
@@ -90,8 +94,8 @@ public class ShowMenu {
         System.out.println("select choose number");
         System.out.println("1 . Shoe");
         System.out.println("2. Electerical ");
-        System.out.println("2. Readable ");
-
+        System.out.println("3. Readable ");
+        System.out.println("4. back ");
     }
 
     public void showAddedShoe() {
@@ -99,7 +103,7 @@ public class ShowMenu {
         System.out.println("select choose number");
         System.out.println("1 . Sport shoe");
         System.out.println("2. Offical shoe ");
-
+        System.out.println("3. back ");
     }
 
 
@@ -114,5 +118,38 @@ public class ShowMenu {
         System.out.println("3 : show all Product");
         System.out.println("4 : back");
 
+    }
+
+    public void showAddedElectrical() {
+        {
+
+            System.out.println("select choose number");
+            System.out.println("1 . Televesion");
+            System.out.println("2. Radio ");
+            System.out.println("3. back ");
+        }
+    }
+
+    public void showAddedRedable() {
+
+        System.out.println("select choose number");
+        System.out.println("1 . Book");
+        System.out.println("2. Magazine ");
+        System.out.println("3. back ");
+
+    }
+
+    public void printChooseModel() {
+
+        System.out.println("selec chosse number 1,2,3 for buing?");
+    }
+
+    public void printSuccessfullBuy() {
+        System.out.println("successfull Buy");
+    }
+
+    public void printErorrCapaciti() {
+
+        System.out.println("your Cart is full !!!");
     }
 }
