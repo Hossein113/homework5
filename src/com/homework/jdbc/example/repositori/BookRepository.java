@@ -56,8 +56,7 @@ public class BookRepository {
         while (resultSet.next()) {
 
             books[count] = new Book(
-
-
+                    resultSet.getInt(1),
                     resultSet.getString(2),
                     resultSet.getString(4),
                     resultSet.getInt(3),
@@ -87,6 +86,27 @@ public class BookRepository {
         return 0;
     }
 
+    public Book getById(int bookId) throws SQLException {
+        Book book = new Book();
+        String quri = "select * from book_table where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(quri);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            book = new Book(
+                    resultSet.getInt(1),
+                    resultSet.getString(2),
+                    resultSet.getString(4),
+                    resultSet.getInt(3),
+                    resultSet.getInt(10),
+                    resultSet.getString(5),
+                    resultSet.getInt(6),
+                    resultSet.getString(7),
+                    resultSet.getString(8),
+                    resultSet.getInt(9)
+            );
+
+        }
+        return book;
+    }
 
 }
-
