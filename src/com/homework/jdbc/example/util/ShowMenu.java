@@ -145,11 +145,20 @@ public class ShowMenu {
     }
 
     public void printSuccessfullBuy() {
-        System.out.println("successfull Buy");
+        System.out.println("successfull added to Cart");
+    }
+
+    public void printSuccessfullBuyCart() {
+
+        System.out.println("successfull Buy !!!");
     }
 
     public void printErorrCapaciti() {
 
         System.out.println("your Cart is full !!!");
+    }
+
+    public void wrong() {
+        System.out.println("please Enter right values !!!  ");
     }
 }
