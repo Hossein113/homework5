@@ -16,6 +16,24 @@ public class Cart {
                 '}';
     }
 
+    private int userId;
+
+    private String refrence;
+
+    public Cart(int userId, String refrence) {
+        this.userId = userId;
+        this.refrence = refrence;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+
     private int id;
 
     private User user;
