@@ -1,7 +1,6 @@
 package com.homework.jdbc.example.repositori;
 
 import com.homework.jdbc.example.domain.SportShoe;
-import com.homework.jdbc.example.util.ApplicationContext;
 
 import java.sql.*;
 
@@ -88,8 +87,36 @@ public class SportShoeRepository {
         return 0;
     }
 
-    public void addedToMyCart(ApplicationContext applicationContext) {
+    public SportShoe getById(int sportshoeId) throws SQLException {
+        String quri = "select * from sportshoe_table where id =" + sportshoeId;
+        PreparedStatement preparedStatement = connection.prepareStatement(quri);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return new SportShoe(
 
+                    resultSet.getInt(1),
+                    resultSet.getString(2),
+                    resultSet.getString(7),
+                    resultSet.getInt(3),
+                    resultSet.getInt(10),
+                    resultSet.getInt(5),
+                    resultSet.getString(4),
+                    resultSet.getString(6),
+                    resultSet.getString(8),
+                    resultSet.getString(9)
 
+            );
+        }
+        return null;
     }
+
+    public void douwnProduct(int sportShoe) throws SQLException {
+        String quri = " update sportshoe_table set number=number-1 where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(quri);
+        preparedStatement.setInt(1, sportShoe);
+        preparedStatement.executeUpdate();
+    }
+
 }
+
+
