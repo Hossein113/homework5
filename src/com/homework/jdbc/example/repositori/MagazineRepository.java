@@ -82,4 +82,34 @@ public class MagazineRepository {
         }
         return 0;
     }
+
+    public Magazine getById(int magazineId) throws SQLException {
+        String quri = "select * from magazine_table where id =" + magazineId;
+        PreparedStatement preparedStatement = connection.prepareStatement(quri);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return new Magazine(
+
+
+                    resultSet.getInt(1),
+                    resultSet.getString(2),
+                    resultSet.getString(4),
+                    resultSet.getInt(3),
+                    resultSet.getInt(8),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7)
+
+            );
+        }
+        return null;
+    }
+
+    public void douwnProduct(int magazineId) throws SQLException {
+        String quri = " update magazine_table set number=number-1 where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(quri);
+        preparedStatement.setInt(1, magazineId);
+        preparedStatement.executeUpdate();
+    }
 }
+
