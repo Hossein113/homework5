@@ -97,11 +97,8 @@ public class Television extends ElectricalAppliances {
     @Override
     public String toString() {
         return "Television{" +
-                "color='" + color + '\'' +
                 ", inchSize=" + inchSize +
                 ", voltageIn='" + voltageIn + '\'' +
-                ", channalNumber=" + channalNumber +
-                ", speakerNumber=" + speakerNumber +
                 ", weight='" + weight + '\'' +
                 ", ImageType='" + ImageType + '\'' +
                 "} " + super.toString();
