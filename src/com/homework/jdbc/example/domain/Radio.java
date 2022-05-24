@@ -89,11 +89,9 @@ public class Radio extends ElectricalAppliances {
     @Override
     public String toString() {
         return "Radio{" +
-                "color='" + color + '\'' +
-                ", size='" + size + '\'' +
+
                 ", voltageIn='" + voltageIn + '\'' +
                 ", channelNumber=" + channelNumber +
-                ", speakerNumber=" + speakerNumber +
                 ", weight='" + weight + '\'' +
                 "} " + super.toString();
     }
