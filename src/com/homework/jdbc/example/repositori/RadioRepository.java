@@ -16,6 +16,14 @@ public class RadioRepository {
         this.connection = db;
     }
 
+    public Radio[] getRadioList() {
+        return radioList;
+    }
+
+    public void setRadioList(Radio[] radioList) {
+        this.radioList = radioList;
+    }
+
     public Radio insertRadio(Radio radio) throws SQLException {
 
         String insertQuery = "insert into radio_table (name , price , made_in , color , size , voltage_in ,channel_number," +
@@ -83,6 +91,32 @@ public class RadioRepository {
         return radios;
     }
 
+    public Radio getById(int RadioId) throws SQLException {
+        String quri = "select * from Radio_table where id =" + RadioId;
+        PreparedStatement preparedStatement = connection.prepareStatement(quri);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return new Radio(
+
+
+                    resultSet.getInt(1),
+                    resultSet.getString(2),
+                    resultSet.getString(4),
+                    resultSet.getInt(3),
+                    resultSet.getInt(12),
+                    resultSet.getString(11),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7),
+                    resultSet.getInt(8),
+                    resultSet.getInt(9),
+                    resultSet.getString(10)
+
+            );
+        }
+        return null;
+    }
+
 
     public int countAllRadio() throws SQLException {
         String query = "select count(*) from radio_table";
@@ -94,13 +128,13 @@ public class RadioRepository {
         return 0;
     }
 
-
-    public Radio[] getRadioList() {
-        return radioList;
+    public void douwnProduct(int radioId) throws SQLException {
+        String quri = " update radio_table set number=number-1 where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(quri);
+        preparedStatement.setInt(1, radioId);
+        preparedStatement.executeUpdate();
     }
 
-    public void setRadioList(Radio[] radioList) {
-        this.radioList = radioList;
-    }
+
 }
 
