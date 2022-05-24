@@ -14,9 +14,10 @@ public class DataInit {
     private BookRepository bookRepository;
     private MagazineRepository magazineRepository;
 
-    public DataInit(RadioRepository radioRepository, TelevisionRepository televisionRepository,
-                    SportShoeRepository sportShoeRepository, OfficalshoeRepository officalshoeRepository,
-                    BookRepository bookRepository, MagazineRepository magazineRepository
+
+    DataInit(RadioRepository radioRepository, TelevisionRepository televisionRepository,
+             SportShoeRepository sportShoeRepository, OfficalshoeRepository officalshoeRepository,
+             BookRepository bookRepository, MagazineRepository magazineRepository
 
     ) {
         this.radioRepository = radioRepository;
@@ -25,7 +26,6 @@ public class DataInit {
         this.officalshoeRepository = officalshoeRepository;
         this.bookRepository = bookRepository;
         this.magazineRepository = magazineRepository;
-
     }
 
 
