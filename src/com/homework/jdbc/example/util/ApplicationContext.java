@@ -25,9 +25,9 @@ public class ApplicationContext {
     private CartRepository cartRepository;
 
     public CartRepository getCartRepository() {
-        if (cartRepository == null) {
-            cartRepository = new CartRepository(databaseConnected.getConnection(), securityUser);
-        }
+        cartRepository = new CartRepository(databaseConnected.getConnection(), getBookRepository(), getMagazineRepository(),
+                getSportShoeRepository(), getOfficalshoeRepository(),
+                getRadioRepository(), getTelevisionRepository());
 
         return cartRepository;
     }
@@ -45,7 +45,7 @@ public class ApplicationContext {
     }
 
     public Scanner getIntScanner() {
-        if (intScanner == null) {
+        {
             this.intScanner = new Scanner(System.in);
         }
         return intScanner;
