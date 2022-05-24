@@ -2,6 +2,7 @@ import com.homework.jdbc.example.domain.*;
 import com.homework.jdbc.example.util.ApplicationContext;
 
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Application {
 
@@ -11,9 +12,16 @@ public class Application {
 
         applicationContext.getDatabaseCreateTable().init();
         System.out.println("ok");
-
         applicationContext.getDataInit().init();
         System.out.println("0k");
+        process(applicationContext);
+
+
+    }
+
+    private static void firstMenu(ApplicationContext applicationContext) throws SQLException, ClassNotFoundException {
+
+
 //
 //        Product[] products = new Product[4];
 //
@@ -31,22 +39,35 @@ public class Application {
 //        for (Product pr : products) {
 //            System.out.println(pr.getClass().getName());
 
-        boolean flag = true;
 
-        while (flag) {
-            applicationContext.getShowMenu().showWelcomeMenu();
-            int selectedNumber = applicationContext.getIntScanner().nextInt();
-            if (selectedNumber == 1) {
-                login(applicationContext);
-            } else if (selectedNumber == 2) {
-                signup(applicationContext);
-            } else if (selectedNumber == 3) {
-                applicationContext.getShowMenu().showLogout();
-                flag = false;
-            } else {
-                applicationContext.getShowMenu().showRightNumber();
+    }
+
+    private static void process(ApplicationContext applicationContext) throws SQLException {
+
+        Scanner scanner = new Scanner(System.in);
+        try {
+            while (true) {
+
+                applicationContext.getShowMenu().showWelcomeMenu();
+//                applicationContext.getIntScanner().nextLine();
+                int selectedNumber = scanner.nextInt();
+                if (selectedNumber == 1) {
+                    login(applicationContext);
+                } else if (selectedNumber == 2) {
+                    signup(applicationContext);
+                } else if (selectedNumber == 3) {
+                    applicationContext.getShowMenu().showLogout();
+                    break;
+                } else {
+                    applicationContext.getShowMenu().showRightNumber();
+                    process(applicationContext);
+                }
             }
+        } catch (Exception e) {
+            applicationContext.getShowMenu().wrong();
+            process(applicationContext);
         }
+
     }
 
 
@@ -67,121 +88,168 @@ public class Application {
             applicationContext.getShowMenu().showLoginFail();
 
         }
+
+
     }
+
 
     private static void redirectUserToPanel(ApplicationContext applicationContext) throws SQLException {
 
-
-        while (true) {
-            applicationContext.getShowMenu().showUserMenu();
-            int selectedNumber = applicationContext.getIntScanner().nextInt();
-            if (selectedNumber == 1) {
-
-                cartUserToPanel(applicationContext);
-
-                redirectUserToPanel(applicationContext);
-            } else if (selectedNumber == 2) {
-                applicationContext.getShowMenu().showAllProduct();
-                allPrintAllProduct(applicationContext);
-
-            } else if (selectedNumber == 3) {
-
-                applicationContext.getShowMenu().showProfile(applicationContext.getSecurityUser().getCurrentUser());
-                redirectUserToPanel(applicationContext);
-            } else if (selectedNumber == 4) {
-
-                applicationContext.getShowMenu().showLogoutProfile();
-                applicationContext.getSecurityUser().logout();
-                break;
-            } else {
-                applicationContext.getShowMenu().showRightNumber();
+        try {
+            while (true) {
                 applicationContext.getShowMenu().showUserMenu();
+                int selectedNumber = applicationContext.getIntScanner().nextInt();
+                if (selectedNumber == 1) {
+                    int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
+                    Cart cart = applicationContext.getCartRepository().getByUserId(userId);
+                    printMyCart(cart);
+                    cartUserToPanel(applicationContext);
+                } else if (selectedNumber == 2) {
+                    applicationContext.getShowMenu().showAllProduct();
+                    allPrintAllProduct(applicationContext);
+                    redirectUserToPanel(applicationContext);
+                } else if (selectedNumber == 3) {
+
+                    applicationContext.getShowMenu().showProfile(applicationContext.getSecurityUser().getCurrentUser());
+                    redirectUserToPanel(applicationContext);
+                } else if (selectedNumber == 4) {
+
+                    applicationContext.getShowMenu().showLogoutProfile();
+                    applicationContext.getSecurityUser().logout();
+                    break;
+                } else {
+                    applicationContext.getShowMenu().showRightNumber();
+                    redirectUserToPanel(applicationContext);
+                }
             }
+
+        } catch (Exception ex) {
+            applicationContext.getShowMenu().wrong();
+            redirectUserToPanel(applicationContext);
         }
+
     }
 
     private static void cartUserToPanel(ApplicationContext applicationContext) throws SQLException {
+        try {
 
-        while (true) {
+            while (true) {
 
-            applicationContext.getShowMenu().showItemMyCart();
+                applicationContext.getShowMenu().showItemMyCart();
 
-            int selectNumber = applicationContext.getIntScanner().nextInt();
-            if (selectNumber == 1) {
-                addedProductTocart(applicationContext);
+                int selectNumber = applicationContext.getIntScanner().nextInt();
+                if (selectNumber == 1) {
+                    addedProductTocart(applicationContext);
+                    redirectUserToPanel(applicationContext);
+                } else if (selectNumber == 2) {
+                    int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
+                    Cart cart = applicationContext.getCartRepository().getByUserId(userId);
+                    applicationContext.getCartRepository().relationAachTableExeptCart(cart);
+                    applicationContext.getCartRepository().exeptCart(cart);
+                    applicationContext.getShowMenu().printSuccessfullBuyCart();
+                    redirectUserToPanel(applicationContext);
 
-            } else if (selectNumber == 2) {
+                } else if (selectNumber == 3) {
+                    applicationContext.getShowMenu().showAllProduct();
+                    printAllProduct(applicationContext);
 
+                } else if (selectNumber == 4) {
 
-            } else if (selectNumber == 3) {
-                applicationContext.getShowMenu().showAllProduct();
-                printAllProduct(applicationContext);
+                    redirectUserToPanel(applicationContext);
 
-            } else if (selectNumber == 4) {
+                } else {
+                    applicationContext.getShowMenu().showRightNumber();
+                    cartUserToPanel(applicationContext);
+                }
 
-                redirectUserToPanel(applicationContext);
-
-            } else {
-                applicationContext.getShowMenu().showRightNumber();
-                applicationContext.getShowMenu().showUserMenu();
 
             }
+        } catch (Exception ex) {
+            applicationContext.getShowMenu().wrong();
+            cartUserToPanel(applicationContext);
+        }
+
+    }
 
 
+    private static void printMyCart(Cart cart) {
+        if (cart.getProductList().size() == 0) {
+            System.out.println("cart is empty ... !");
+        } else {
+            for (int i = 0; i < cart.getProductList().size(); i++) {
+
+                System.out.println(cart.getProductList().get(i));
+            }
         }
     }
 
     private static void addedProductTocart(ApplicationContext applicationContext) throws SQLException {
-        int capacity = applicationContext.getCartRepository().cartCapacity(applicationContext.getSecurityUser().getCurrentUser().getId());
-        if (capacity < 2) {
+        try {
+
             applicationContext.getShowMenu().showAddeProduct();
-            int selectNumber = applicationContext.getIntScanner().nextInt();
-            if (selectNumber == 1) {
+            int capacity = applicationContext.getCartRepository().cartCapacity(applicationContext.getSecurityUser().getCurrentUser().getId());
+            if (capacity < 5) {
 
-                applicationContext.getShowMenu().showAddedShoe();
-                addedSheoToMycart(applicationContext);
-            } else if (selectNumber == 2) {
+                int selectNumber = applicationContext.getIntScanner().nextInt();
+                if (selectNumber == 1) {
 
-                applicationContext.getShowMenu().showAddedElectrical();
-                addedElectricalToMycart(applicationContext);
-            } else if (selectNumber == 3) {
-                applicationContext.getShowMenu().showAddedRedable();
-                addedRedableToMyCart(applicationContext);
-            } else if (selectNumber == 4) {
-                cartUserToPanel(applicationContext);
 
+                    addedSheoToMycart(applicationContext);
+                } else if (selectNumber == 2) {
+
+
+                    addedElectricalToMycart(applicationContext);
+                } else if (selectNumber == 3) {
+
+                    addedRedableToMyCart(applicationContext);
+                } else if (selectNumber == 4) {
+                    cartUserToPanel(applicationContext);
+
+                } else {
+                    applicationContext.getShowMenu().showRightNumber();
+                    addedProductTocart(applicationContext);
+
+                }
             } else {
-                applicationContext.getShowMenu().showRightNumber();
-                addedProductTocart(applicationContext);
+                applicationContext.getShowMenu().printErorrCapaciti();
 
             }
-        } else {
-            applicationContext.getShowMenu().printErorrCapaciti();
-            cartUserToPanel(applicationContext);
+        } catch (Exception ex) {
+
+            applicationContext.getShowMenu().wrong();
+            addedProductTocart(applicationContext);
+
         }
+
     }
 
 
     private static void addedRedableToMyCart(ApplicationContext applicationContext) throws SQLException {
+        try {
+            applicationContext.getShowMenu().showAddedRedable();
+            int selectNumber = applicationContext.getIntScanner().nextInt();
+            if (selectNumber == 1) {
+                applicationContext.getShowMenu().printChooseModel();
+                addToRelationBook(applicationContext);
 
+            } else if (selectNumber == 2) {
+                applicationContext.getShowMenu().printChooseModel();
 
-        int selectNumber = applicationContext.getIntScanner().nextInt();
-        if (selectNumber == 1) {
-            applicationContext.getShowMenu().printChooseModel();
-            addToRelationBook(applicationContext);
+                addToRelationMagazine(applicationContext);
+            } else if (selectNumber == 3) {
+                addedProductTocart(applicationContext);
 
-        } else if (selectNumber == 2) {
-            applicationContext.getShowMenu().printChooseModel();
+            } else {
+                applicationContext.getShowMenu().showRightNumber();
+                addedRedableToMyCart(applicationContext);
 
-            addToRelationMagazine(applicationContext);
-        } else if (selectNumber == 3) {
-            addedProductTocart(applicationContext);
+            }
+        } catch (Exception ex) {
 
-        } else {
-            applicationContext.getShowMenu().showRightNumber();
+            applicationContext.getShowMenu().wrong();
             addedRedableToMyCart(applicationContext);
-
         }
+
 
     }
 
@@ -191,21 +259,26 @@ public class Application {
             System.out.println(i + 1 + ":" + books[i]);
 
         }
-        int productId = applicationContext.getIntScanner().nextInt();
+        try {
+            int productId = applicationContext.getIntScanner().nextInt();
 
-        if (productId < books.length + 1) {
-            int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
-            int cartId = applicationContext.getCartRepository().getCartId(userId);
-            int pruduct = books[productId - 1].getId();
-            applicationContext.getCartRepository().insertToReleationCart(
-                    cartId, pruduct, "Book"
+            if (productId < books.length + 1) {
+                int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
+                int cartId = applicationContext.getCartRepository().getCartId(userId);
+                int pruduct = books[productId - 1].getId();
+                applicationContext.getCartRepository().insertToReleationCart(
+                        cartId, pruduct, "Book"
 
-            );
-            applicationContext.getShowMenu().printSuccessfullBuy();
-            cartUserToPanel(applicationContext);
+                );
+                applicationContext.getShowMenu().printSuccessfullBuy();
 
-        } else {
-            applicationContext.getShowMenu().showRightNumber();
+
+            } else {
+                applicationContext.getShowMenu().showRightNumber();
+                addToRelationBook(applicationContext);
+            }
+        } catch (Exception ex) {
+            applicationContext.getShowMenu().wrong();
             addToRelationBook(applicationContext);
         }
     }
@@ -216,43 +289,54 @@ public class Application {
             System.out.println(i + 1 + ":" + magazines[i]);
 
         }
-        int productId = applicationContext.getIntScanner().nextInt();
+        try {
+            int productId = applicationContext.getIntScanner().nextInt();
 
-        if (productId < magazines.length + 1) {
-            int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
-            int cartId = applicationContext.getCartRepository().getCartId(userId);
-            int pruduct = magazines[productId - 1].getId();
-            applicationContext.getCartRepository().insertToReleationCart(
-                    cartId, pruduct, "Magazine"
-            );
-            applicationContext.getShowMenu().printSuccessfullBuy();
-            cartUserToPanel(applicationContext);
+            if (productId < magazines.length + 1) {
+                int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
+                int cartId = applicationContext.getCartRepository().getCartId(userId);
+                int pruduct = magazines[productId - 1].getId();
+                applicationContext.getCartRepository().insertToReleationCart(
+                        cartId, pruduct, "Magazine"
+                );
+                applicationContext.getShowMenu().printSuccessfullBuy();
 
-        } else {
-            applicationContext.getShowMenu().showRightNumber();
+
+            } else {
+                applicationContext.getShowMenu().showRightNumber();
+                addToRelationMagazine(applicationContext);
+            }
+        } catch (Exception ex) {
+            applicationContext.getShowMenu().wrong();
             addToRelationMagazine(applicationContext);
         }
     }
 
     private static void addedElectricalToMycart(ApplicationContext applicationContext) throws SQLException {
+        try {
+            applicationContext.getShowMenu().showAddedElectrical();
+            int selectNumber = applicationContext.getIntScanner().nextInt();
+            if (selectNumber == 1) {
+                applicationContext.getShowMenu().printChooseModel();
+                addToRelationTelevision(applicationContext);
 
+            } else if (selectNumber == 2) {
+                applicationContext.getShowMenu().printChooseModel();
 
-        int selectNumber = applicationContext.getIntScanner().nextInt();
-        if (selectNumber == 1) {
-            applicationContext.getShowMenu().printChooseModel();
-            addToRelationTelevision(applicationContext);
+                addToRelationRadio(applicationContext);
+            } else if (selectNumber == 3) {
+                addedProductTocart(applicationContext);
 
-        } else if (selectNumber == 2) {
-            applicationContext.getShowMenu().printChooseModel();
+            } else {
+                applicationContext.getShowMenu().showRightNumber();
+                addedElectricalToMycart(applicationContext);
+            }
+        } catch (Exception exception) {
 
-            addToRelationRadio(applicationContext);
-        } else if (selectNumber == 3) {
-            addedProductTocart(applicationContext);
-
-        } else {
-            applicationContext.getShowMenu().showRightNumber();
+            applicationContext.getShowMenu().wrong();
             addedElectricalToMycart(applicationContext);
         }
+
 
     }
 
@@ -262,24 +346,28 @@ public class Application {
             System.out.println(i + 1 + ":" + televisions[i]);
 
         }
-        int productId = applicationContext.getIntScanner().nextInt();
+        try {
+            int productId = applicationContext.getIntScanner().nextInt();
 
-        if (productId < televisions.length + 1) {
-            int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
-            int cartId = applicationContext.getCartRepository().getCartId(userId);
-            int pruduct = televisions[productId - 1].getId();
-            applicationContext.getCartRepository().insertToReleationCart(
-                    cartId, pruduct, "Television"
+            if (productId < televisions.length + 1) {
+                int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
+                int cartId = applicationContext.getCartRepository().getCartId(userId);
+                int pruduct = televisions[productId - 1].getId();
+                applicationContext.getCartRepository().insertToReleationCart(
+                        cartId, pruduct, "Television"
 
-            );
-            applicationContext.getShowMenu().printSuccessfullBuy();
-            cartUserToPanel(applicationContext);
+                );
+                applicationContext.getShowMenu().printSuccessfullBuy();
 
-        } else {
-            applicationContext.getShowMenu().showRightNumber();
+
+            } else {
+                applicationContext.getShowMenu().showRightNumber();
+                addToRelationTelevision(applicationContext);
+            }
+        } catch (Exception ex) {
+            applicationContext.getShowMenu().wrong();
             addToRelationTelevision(applicationContext);
         }
-
     }
 
     private static void addToRelationRadio(ApplicationContext applicationContext) throws SQLException {
@@ -288,102 +376,125 @@ public class Application {
             System.out.println(i + 1 + ":" + radios[i]);
 
         }
-        int productId = applicationContext.getIntScanner().nextInt();
+        try {
+            int productId = applicationContext.getIntScanner().nextInt();
 
-        if (productId < radios.length + 1) {
-            int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
-            int cartId = applicationContext.getCartRepository().getCartId(userId);
-            int pruduct = radios[productId - 1].getId();
-            applicationContext.getCartRepository().insertToReleationCart(
-                    cartId, pruduct, "Radio"
-            );
-            applicationContext.getShowMenu().printSuccessfullBuy();
-            cartUserToPanel(applicationContext);
+            if (productId < radios.length + 1) {
+                int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
+                int cartId = applicationContext.getCartRepository().getCartId(userId);
+                int pruduct = radios[productId - 1].getId();
+                applicationContext.getCartRepository().insertToReleationCart(
+                        cartId, pruduct, "Radio"
+                );
+                applicationContext.getShowMenu().printSuccessfullBuy();
 
-        } else {
-            applicationContext.getShowMenu().showRightNumber();
+
+            } else {
+                applicationContext.getShowMenu().showRightNumber();
+                addToRelationRadio(applicationContext);
+            }
+        } catch (Exception ex) {
+            applicationContext.getShowMenu().wrong();
             addToRelationRadio(applicationContext);
         }
-
 
     }
 
 
     private static void addedSheoToMycart(ApplicationContext applicationContext) throws SQLException {
 
+        try {
+            applicationContext.getShowMenu().showAddedShoe();
+            int selectNumber = applicationContext.getIntScanner().nextInt();
+            if (selectNumber == 1) {
 
-        int selectNumber = applicationContext.getIntScanner().nextInt();
-        if (selectNumber == 1) {
-            applicationContext.getShowMenu().printChooseModel();
 
-            addToRelationSportShoe(applicationContext);
+                addToRelationSportShoe(applicationContext);
 
-        } else if (selectNumber == 2) {
-            applicationContext.getShowMenu().printChooseModel();
-            addToRelationOfficalShoe(applicationContext);
-        } else if (selectNumber == 3) {
-            addedProductTocart(applicationContext);
+            } else if (selectNumber == 2) {
 
-        } else {
+                addToRelationOfficalShoe(applicationContext);
+            } else if (selectNumber == 3) {
+                addedProductTocart(applicationContext);
 
-            applicationContext.getShowMenu().showRightNumber();
+            } else {
+
+                applicationContext.getShowMenu().showRightNumber();
+                addedSheoToMycart(applicationContext);
+            }
+        } catch (Exception ex) {
+
+            applicationContext.getShowMenu().wrong();
             addedSheoToMycart(applicationContext);
+
         }
-        applicationContext.getShowMenu().printSuccessfullBuy();
-        cartUserToPanel(applicationContext);
 
     }
 
     private static void addToRelationSportShoe(ApplicationContext applicationContext) throws SQLException {
+        Scanner scanneri = new Scanner(System.in);
         SportShoe[] sportShoes = applicationContext.getSportShoeRepository().getAllSportShoe();
+        applicationContext.getShowMenu().printChooseModel();
         for (int i = 0; i < sportShoes.length; i++) {
             System.out.println(i + 1 + ":" + sportShoes[i]);
 
         }
-        int productId = applicationContext.getIntScanner().nextInt();
+        try {
 
-        if (productId < sportShoes.length + 1) {
-            int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
-            int cartId = applicationContext.getCartRepository().getCartId(userId);
-            int pruduct = sportShoes[productId - 1].getId();
-            applicationContext.getCartRepository().insertToReleationCart(
-                    cartId, pruduct, "Sportshoe"
+            int productId = scanneri.nextInt();
+            if (productId < sportShoes.length) {
 
-            );
-            applicationContext.getShowMenu().printSuccessfullBuy();
-            cartUserToPanel(applicationContext);
+                int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
+                int cartId = applicationContext.getCartRepository().getCartId(userId);
+                int pruduct = sportShoes[productId - 1].getId();
+                applicationContext.getCartRepository().insertToReleationCart(
+                        cartId, pruduct, "Sportshoe"
+                );
+                applicationContext.getShowMenu().printSuccessfullBuy();
 
-        } else {
-            applicationContext.getShowMenu().showRightNumber();
+
+            } else {
+                applicationContext.getShowMenu().showRightNumber();
+                addToRelationSportShoe(applicationContext);
+            }
+        } catch (Exception ex) {
+
+            applicationContext.getShowMenu().wrong();
             addToRelationSportShoe(applicationContext);
         }
-
 
     }
 
     private static void addToRelationOfficalShoe(ApplicationContext applicationContext) throws SQLException {
         OfficalShoe[] officalShoes = applicationContext.getOfficalshoeRepository().getAllOfficalShoe();
+        applicationContext.getShowMenu().printChooseModel();
         for (int i = 0; i < officalShoes.length; i++) {
             System.out.println(i + 1 + ":" + officalShoes[i]);
 
         }
-        int productId = applicationContext.getIntScanner().nextInt();
+        try {
 
-        if (productId < officalShoes.length + 1) {
-            int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
-            int cartId = applicationContext.getCartRepository().getCartId(userId);
-            int pruduct = officalShoes[productId - 1].getId();
-            applicationContext.getCartRepository().insertToReleationCart(
-                    cartId, pruduct, "Officalshoe"
-            );
-            applicationContext.getShowMenu().printSuccessfullBuy();
-            cartUserToPanel(applicationContext);
+            int productId = applicationContext.getIntScanner().nextInt();
 
-        } else {
-            applicationContext.getShowMenu().showRightNumber();
+            if (productId < officalShoes.length + 1) {
+                int userId = applicationContext.getSecurityUser().getCurrentUser().getId();
+                int cartId = applicationContext.getCartRepository().getCartId(userId);
+                int pruduct = officalShoes[productId - 1].getId();
+                applicationContext.getCartRepository().insertToReleationCart(
+                        cartId, pruduct, "Officalshoe"
+                );
+                applicationContext.getShowMenu().printSuccessfullBuy();
+
+
+            } else {
+                applicationContext.getShowMenu().showRightNumber();
+                addToRelationOfficalShoe(applicationContext);
+            }
+        } catch (Exception ex) {
+
+            applicationContext.getShowMenu().wrong();
             addToRelationOfficalShoe(applicationContext);
         }
-
 
     }
 
@@ -400,6 +511,7 @@ public class Application {
         printAllOfficalShoe(applicationContext);
         redirectUserToPanel(applicationContext);
     }
+
 
     private static void printAllBook(ApplicationContext applicationContext) throws SQLException {
         Book[] books = applicationContext.getBookRepository().getAllBook();
@@ -442,6 +554,7 @@ public class Application {
         OfficalShoe[] officalShoes = applicationContext.getOfficalshoeRepository().getAllOfficalShoe();
         for (int i = 0; i < officalShoes.length; i++) {
             System.out.println((i + 16 + ": " + officalShoes[i]));
+
         }
     }
 
