@@ -84,5 +84,38 @@ public class OfficalshoeRepository {
         return 0;
     }
 
+    public OfficalShoe getById(int officalshoeId) throws SQLException {
+        String quri = "select * from officalshoe_table where id =" + officalshoeId;
+        PreparedStatement preparedStatement = connection.prepareStatement(quri);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return new OfficalShoe(
+
+
+                    resultSet.getInt(1),
+                    resultSet.getString(2),
+                    resultSet.getString(7),
+                    resultSet.getInt(3),
+                    resultSet.getInt(9),
+                    resultSet.getInt(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(8)
+
+            );
+
+        }
+        return null;
+    }
+
+    public void douwnProduct(int officalShoe) throws SQLException {
+        String quri = " update officalshoe_table set number=number-1 where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(quri);
+        preparedStatement.setInt(1, officalShoe);
+        preparedStatement.executeUpdate();
+    }
+
 }
+
+
 
