@@ -117,7 +117,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
-                ", address=" + address +
                 '}';
     }
 }
