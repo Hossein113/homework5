@@ -87,12 +87,11 @@ public class BookRepository {
     }
 
     public Book getById(int bookId) throws SQLException {
-        Book book = new Book();
-        String quri = "select * from book_table where id = ?";
+        String quri = "select * from book_table where id =" + bookId;
         PreparedStatement preparedStatement = connection.prepareStatement(quri);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
-            book = new Book(
+            return new Book(
                     resultSet.getInt(1),
                     resultSet.getString(2),
                     resultSet.getString(4),
@@ -106,7 +105,14 @@ public class BookRepository {
             );
 
         }
-        return book;
+        return null;
     }
 
+    public void douwnProduct(int bookId) throws SQLException {
+        String quri = " update book_table set number=number-1 where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(quri);
+        preparedStatement.setInt(1, bookId);
+        preparedStatement.executeUpdate();
+
+    }
 }
